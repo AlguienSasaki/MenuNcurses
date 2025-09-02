@@ -1,6 +1,6 @@
 # MenuNcurses-
 
-![Cool Screenshot](https://raw.githubusercontent.com/AlguienSasaki/MenuNcurses/images/1.png)
+![Cool Screenshot](images/1.png)
 
 Juro que lo documentaré
 
