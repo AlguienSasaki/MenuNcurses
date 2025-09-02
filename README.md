@@ -1,2 +1,9 @@
 # MenuNcurses-
-Simple menu made with c++ and ncurses for personal use
+
+[Cool Screenshot](https://raw.githubusercontent.com/AlguienSasaki/MenuNcurses/images/1.png)
+
+Juro que lo documentaré
+
+...
+
+algún día
