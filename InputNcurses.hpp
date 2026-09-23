@@ -43,7 +43,11 @@ inline InputNcurses::InputNcurses(const string &mensaje, const string &variable,
 template<typename T> 
 T InputNcurses::solicitarEntrada() {  //define la funcion plantilla
     werase(win);
+
+    wattron(win, COLOR_PAIR(3));
     box(win, 0, 0); //dibuja el marco
+    wattroff(win, COLOR_PAIR(3));
+
 // comprobacion de si se usa variable y mensjae2
     string mensajeCompleto;
     if (!variable.empty() || !mensaje2.empty())
@@ -52,7 +56,10 @@ T InputNcurses::solicitarEntrada() {  //define la funcion plantilla
         mensajeCompleto = mensaje;
 //imprime lo qu tenga
     if (!mensajeCompleto.empty())
+        wattron(win, COLOR_PAIR(4) | A_BOLD);
         mvwprintw(win, 1, 2, mensajeCompleto.c_str());
+        wattroff(win, COLOR_PAIR(4) | A_BOLD);
+
 // imprime el prompt como string en la linea 3 columna 2
     mvwprintw(win, 3, 2, prompt.c_str());
     wrefresh(win);
