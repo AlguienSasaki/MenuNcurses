@@ -6,9 +6,9 @@
 
 class DetalleNcurses : public MenuNcurses {
 public:
-    DetalleNcurses(const string &title, const vector<string> &lineas);
-    void mostrar();
-    //virtual ~DetallesNcurses();
+  DetalleNcurses(const string &title, const vector<string> &lineas);
+  void mostrar();
+  // virtual ~DetallesNcurses();
 };
 
 #endif // DETALLENCURSES_H

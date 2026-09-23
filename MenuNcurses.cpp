@@ -1,6 +1,7 @@
 #include "MenuNcurses.hpp"
 
-void imprimirConFormato(WINDOW *win, int &y, int x_inicio, int max_x, const std::string &texto) {
+void imprimirConFormato(WINDOW *win, int &y, int x_inicio, int max_x,
+                        const std::string &texto) {
   int x = x_inicio;
   wmove(win, y, x);
   size_t i = 0;
@@ -39,7 +40,7 @@ void imprimirConFormato(WINDOW *win, int &y, int x_inicio, int max_x, const std:
           continue;
         }
 
-        i = fin + 1; // Salta la etiqueta de formato
+        i = fin + 1;
         continue;
       }
     }
@@ -56,7 +57,7 @@ void imprimirConFormato(WINDOW *win, int &y, int x_inicio, int max_x, const std:
     i++;
   }
 
-  // Apagar atributos al terminar
+  // Limpieza
   wattroff(win, COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4) |
                     COLOR_PAIR(5) | A_BOLD);
 }
@@ -69,7 +70,7 @@ MenuNcurses::MenuNcurses(const string &title,
 
 void MenuNcurses::construirVentana(bool interactivo) {
   int lineasTotales = 0;
-  int anchoUtil = width - 4; 
+  int anchoUtil = width - 4;
 
   for (const auto &opt : options) {
     if (opt.empty()) {
@@ -89,12 +90,14 @@ void MenuNcurses::construirVentana(bool interactivo) {
 void MenuNcurses::dibujar(int highlight, bool interactivo) {
   werase(win);
 
-  // Borde en color amarillo/cian
+  // Borde en color amarillo/cian/nose, esto me tocará reescribirlo para que
+  // pueda poner los colores q quiera y no limitarme, pero de mientras se queda
+  // hardcodeado :"V
   wattron(win, COLOR_PAIR(3));
   box(win, 0, 0);
   wattroff(win, COLOR_PAIR(3));
 
-  // Título
+  // Título.
   if (!title.empty()) {
     wattron(win, COLOR_PAIR(4) | A_BOLD);
     mvwprintw(win, 0, 2, (" " + title + " ").c_str());
@@ -102,13 +105,15 @@ void MenuNcurses::dibujar(int highlight, bool interactivo) {
   }
 
   int currY = 1;
-  int maxX = width - 3; // Límite derecho antes de tocar el marco vertical
+  int maxX = width -
+             3; // Límite derecho antes de tocar el marco vertical, lo mismo,
+                // para hacer q no se sobreescriba en el borde la wbada esa >:\/
 
   for (size_t i = 0; i < options.size(); ++i) {
     if (interactivo && (int)i == highlight)
       wattron(win, A_REVERSE);
 
-    // Se imprime respetando márgenes X min: 2, X max: width - 3
+    // Se imprime respetando los margenes.
     imprimirConFormato(win, currY, 2, maxX, options[i]);
     currY++; // Pasa a la siguiente fila para el siguiente elemento
 
@@ -118,7 +123,11 @@ void MenuNcurses::dibujar(int highlight, bool interactivo) {
 
   if (!interactivo) {
     wattron(win, A_DIM);
-    mvwprintw(win, currY + 1, 2, "Presiona una tecla para continuar...");
+    mvwprintw(
+        win, currY + 1, 2,
+        "Presiona una tecla para continuar..."); // Igual esto, no me gusta q
+                                                 // esté hardcodeado, pero de
+                                                 // mientras jala.
     wattroff(win, A_DIM);
   }
 
