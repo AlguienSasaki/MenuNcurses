@@ -1,6 +1,7 @@
 # MenuNcurses-
 
-![Cool Screenshot](images/1.png)
+![Cool Screenshot](images/7.png)
+![Another Cool Screenshot why not?](images/8.png)
 
 Juro que lo documentaré
 
